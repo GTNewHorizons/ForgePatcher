@@ -280,3 +280,7 @@ pip-log.txt
 /logs
 /options.txt
 /usernamecache.json
+*.bat
+gradlew
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
