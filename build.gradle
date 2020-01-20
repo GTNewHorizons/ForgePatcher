@@ -41,7 +41,7 @@ minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = "run/assets"
 	
-	replaceIn "BugfixModDummyContainer.java"
+	replaceIn "BugPatchDummyContainer.java"
 	replace "@VERSION@", "${config.mod_version}"
 }
 
@@ -73,7 +73,8 @@ processResources {
 jar {
     appendix = 'universal'
     manifest {
-        attributes 'FMLCorePlugin': 'williewillus.BugfixMod.coremod.BugfixModFMLLoadingPlugin'
+        attributes 'FMLCorePlugin': 'ru.denull.BugPatch.coremod.BugPatchFMLLoadingPlugin'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 

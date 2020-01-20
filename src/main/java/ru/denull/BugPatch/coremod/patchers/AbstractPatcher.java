@@ -1,4 +1,4 @@
-package williewillus.BugfixMod.coremod.patchers;
+package ru.denull.BugPatch.coremod.patchers;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -6,7 +6,8 @@ import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodNode;
-import williewillus.BugfixMod.coremod.BugfixModClassTransformer;
+
+import ru.denull.BugPatch.coremod.BugPatchClassTransformer;
 
 import java.util.Iterator;
 
@@ -69,6 +70,6 @@ public abstract class AbstractPatcher {
     public abstract InsnList buildNewInsns(AbstractInsnNode currentInstruction, Iterator<AbstractInsnNode> instructionSet);
 
     public void printMessage(String message) {
-        BugfixModClassTransformer.instance.logger.info("[" + patcherName + "] " + message);
+        BugPatchClassTransformer.instance.logger.info("[" + patcherName + "] " + message);
     }
 }

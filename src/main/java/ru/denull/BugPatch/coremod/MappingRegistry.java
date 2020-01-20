@@ -1,7 +1,8 @@
-package williewillus.BugfixMod.coremod;
+package ru.denull.BugPatch.coremod;
 
 import com.google.common.collect.Maps;
-import williewillus.BugfixMod.BugfixModSettings;
+
+import ru.denull.BugPatch.BugPatchSettings;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class MappingRegistry {
         if (!hasInit) {
             MappingRegistry.isObf = isObf;
             if (MappingRegistry.isObf) {
-                BugfixModSettings settings = BugfixModClassTransformer.instance.settings;
+                BugPatchSettings settings = BugPatchClassTransformer.instance.settings;
 
                 if (settings.BoatDesyncFixEnabled) {
                     classMap.put("net/minecraft/entity/item/EntityBoat", "xi");
@@ -124,7 +125,7 @@ public class MappingRegistry {
         } else {
             String get = classMap.get(request.replaceAll("\\.", "/"));
             if (get == null) {
-                BugfixModClassTransformer.instance.logger.warn("MappingRegistry just returned null for class lookup: " + request);
+                BugPatchClassTransformer.instance.logger.warn("MappingRegistry just returned null for class lookup: " + request);
             }
             return get;
         }
@@ -141,7 +142,7 @@ public class MappingRegistry {
         } else {
             String get = fieldMap.get(request);
             if (get == null) {
-                BugfixModClassTransformer.instance.logger.warn("MappingRegistry just returned null for field lookup: " + request);
+                BugPatchClassTransformer.instance.logger.warn("MappingRegistry just returned null for field lookup: " + request);
             }
             return get;
         }
@@ -154,7 +155,7 @@ public class MappingRegistry {
         } else {
             String get = methodMap.get(request);
             if (get == null) {
-                BugfixModClassTransformer.instance.logger.warn("MappingRegistry just returned null for method lookup: " + request);
+                BugPatchClassTransformer.instance.logger.warn("MappingRegistry just returned null for method lookup: " + request);
             }
             return get;
         }

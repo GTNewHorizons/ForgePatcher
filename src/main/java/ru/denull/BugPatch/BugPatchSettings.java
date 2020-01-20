@@ -1,9 +1,9 @@
-package williewillus.BugfixMod;
+package ru.denull.BugPatch;
 
 /**
  * Created by Vincent on 3/10/14.
  */
-public class BugfixModSettings {
+public class BugPatchSettings {
     public boolean SnowballFixEnabled;
     public boolean ChickenLureTweakEnabled;
     public boolean VillageAnvilTweakEnabled;

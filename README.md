@@ -1,4 +1,63 @@
-# BugfixMod
-ASM / Bytecode Mod for the Minecraft Forge API that fixes several bugs in the vanilla Minecraft 1.7.10 game.
+# BugPatch
 
-UNSUPPORTED. COMPILE AND USE AT YOUR OWN RISK.
+This mod is based on [Bugfix Mod](https://github.com/williewillus/BugfixMod) by Vincent Lee. It's intended to fix some bugs in Minecraft 1.7.10.
+
+The most important fix for me was preventing boats from desyncronisation. I also added simple fix to allow sleeping in beds placed above y=128.
+
+Other fixes are (as described by original mod author):
+
+ArrowFix
+- A field was set incorrectly in EntityArrow's onUpdate() method,
+- This led to the algorithm that determines whether the arrow should impact a block to break
+- As such, the arrow believed it was in a different block than it actually was, causing dupe and transmutation glitches.
+- This is fixed by changing the field assignment back to what it was in 1.6.4.
+- This bug was also fixed by Mojang in 1.7.6
+
+ArrowDingTweak
+- I wanted to know whether I had hit a mob from far away, so I took EntityArrow's onUpdate() once more and changed the "ding" check to include IMob implementations as well as players.
+
+ChatOpacityFix
+- Since 1.7.x, chat opacity slider controlled only the gray background opacity and not the actual words.
+- This adds a GL11.glEnable(GL11.GL_BLEND) that was present in 1.6.4
+- This fix has been pulled into MinecraftForge 1181+ and Minecraft 1.8
+
+ChickenLureFix
+- There was an inconsistency: chickens could breed with all subclasses of ItemSeeds
+- This adds AI tasks that make chickens attracted to all items they can breed with, not just seeds.
+
+HeartFlashFix
+- Since 1.0.0 SMP and 1.3.1 SSP, the hearts no longer flashed the "delta" health, or damage taken.
+- In the past, if one were at 10 hearts and dropped to 5, the 5 lost hearts would flash white to indicate their loss.
+- This readds that functionality which was inadvertently removed due to the clientside value the renderer depended on no longer being updated properly.
+- Works in 1.8 but not exactly as before :/
+
+HeartBlinkFix
+- The DataWatcher holds the health.
+- The client player's setPlayerSPHealth() method is called by a health update packet, which queues a new health value to the clientside datawatcher
+- The client datawatcher is *actually* updated with the server value in a separate entity metadata packet.
+- The game does the blink on regen by setting the client player's hurtResistantTime to 10.
+- However the time is set in the health update packet, but the actual new health does not actually arrive until the next packet.
+- So by the time the renderer notices, hurtResistantTime is already 8 or 9 and thus the renderer renders no blink
+- Fix: Set hurtResistantTime to 11, gives an extra tick for the entity metadata packet to arrive and be processed
+- Works in 1.8 but not exactly as before :/
+
+ItemHopperBounceFix
+- Items no longer bounce around on locked hoppers
+
+ItemStairBounceFix
+- Items no longer bounce around on stairs.
+- Super annoying bug for me but some like it, so it is disabled by default
+
+SnowballFix
+- All projectiles that deal 0 damage knock back players again.
+
+ToolDesyncFix
+- Tools are only damaged on the server side so discrepancies in calculating the Unbreaking enchantment do not cause reappearing tools
+
+VillageAnvilTweak
+- Blacksmith houses generate with an anvil where there was a double stone slab (which was supposed to be an "anvil" anyway).
+
+XPFix
+- XP Orbs were being spawned on the clientside 32x their true coordinates, leading them to be invisible for several seconds after spawning
+- This restores proper functionality, last shown in Minecraft 1.4.7.
+- This fix has been pulled into MinecraftForge 1182+

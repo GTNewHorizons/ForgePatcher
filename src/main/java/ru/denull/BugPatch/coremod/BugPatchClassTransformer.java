@@ -1,20 +1,21 @@
-package williewillus.BugfixMod.coremod;
+package ru.denull.BugPatch.coremod;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.common.config.Configuration;
+import ru.denull.BugPatch.BugPatchSettings;
+import ru.denull.BugPatch.coremod.patchers.AbstractPatcher;
+import ru.denull.BugPatch.coremod.patchers.BoatDesyncFixPatcher_Extra;
+import ru.denull.BugPatch.coremod.patchers.BoatDesyncFixPatcher_Main;
+import ru.denull.BugPatch.coremod.patchers.ChickenLureTweakPatcher;
+import ru.denull.BugPatch.coremod.patchers.HeartBlinkFixPatcher;
+import ru.denull.BugPatch.coremod.patchers.HeartFlashFixPatcher;
+import ru.denull.BugPatch.coremod.patchers.ItemHopperBounceFixPatcher;
+import ru.denull.BugPatch.coremod.patchers.ItemStairBounceFixPatcher;
+import ru.denull.BugPatch.coremod.patchers.SnowballFixPatcher;
+import ru.denull.BugPatch.coremod.patchers.VillageAnvilTweakPatcher;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import williewillus.BugfixMod.BugfixModSettings;
-import williewillus.BugfixMod.coremod.patchers.AbstractPatcher;
-import williewillus.BugfixMod.coremod.patchers.BoatDesyncFixPatcher_Extra;
-import williewillus.BugfixMod.coremod.patchers.BoatDesyncFixPatcher_Main;
-import williewillus.BugfixMod.coremod.patchers.ChickenLureTweakPatcher;
-import williewillus.BugfixMod.coremod.patchers.HeartBlinkFixPatcher;
-import williewillus.BugfixMod.coremod.patchers.HeartFlashFixPatcher;
-import williewillus.BugfixMod.coremod.patchers.ItemHopperBounceFixPatcher;
-import williewillus.BugfixMod.coremod.patchers.ItemStairBounceFixPatcher;
-import williewillus.BugfixMod.coremod.patchers.SnowballFixPatcher;
-import williewillus.BugfixMod.coremod.patchers.VillageAnvilTweakPatcher;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,16 +25,16 @@ import java.util.Arrays;
 /**
  * Created by Vincent on 3/10/14.
  */
-public class BugfixModClassTransformer implements IClassTransformer {
+public class BugPatchClassTransformer implements IClassTransformer {
 
-    public static BugfixModClassTransformer instance;
+    public static BugPatchClassTransformer instance;
     public File settingsFile;
     private boolean hasInit = false;
-    protected BugfixModSettings settings;
+    protected BugPatchSettings settings;
     private ArrayList<AbstractPatcher> patchers;
-    public Logger logger = LogManager.getLogger("BugfixMod");
+    public Logger logger = LogManager.getLogger("BugPatch");
 
-    public BugfixModClassTransformer() {
+    public BugPatchClassTransformer() {
 
         if (instance != null) {
             throw new RuntimeException("Only one transformer may exist!");
@@ -46,7 +47,7 @@ public class BugfixModClassTransformer implements IClassTransformer {
         if (!hasInit) {
             Configuration config = new Configuration(settingsFile);
             config.load();
-            settings = new BugfixModSettings();
+            settings = new BugPatchSettings();
 
 
             settings.ItemHopperBounceFixEnabled = config.get("COMMON", "ItemHopperBounceFixEnabled", false).getBoolean(false);

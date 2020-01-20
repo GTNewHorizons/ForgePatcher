@@ -1,4 +1,4 @@
-package williewillus.BugfixMod.mod;
+package ru.denull.BugPatch.mod;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.monster.IMob;

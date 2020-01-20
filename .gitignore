@@ -270,3 +270,13 @@ pip-log.txt
 
 #Translations
 *.mo
+
+
+
+# Minecraft
+
+/saves
+/config
+/logs
+/options.txt
+/usernamecache.json
